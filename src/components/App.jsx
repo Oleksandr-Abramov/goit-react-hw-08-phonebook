@@ -1,44 +1,80 @@
+// import { useEffect } from 'react';
+// import { useDispatch, useSelector } from 'react-redux/es/exports';
+// import * as contactsActions from '../redux/contactsActions';
+// import { ContactForm } from './ContactForm/ContactForm';
+// import { ContactList } from './ContactList/ContactList';
+// import { Filter } from './Filter/Filter';
+// import { fetchContacts } from '../redux/contactsOperations';
+import { Home } from 'pages/Home/Home';
+import { Login } from 'pages/Login/Login';
+import { NotFound } from 'pages/NotFound/NotFound';
+import { Phonebook } from 'pages/Phonebook/Phonebook';
+import { Register } from 'pages/Register/Register';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux/es/exports';
-import * as contactsActions from '../redux/contactsActions';
-import { ContactForm } from './ContactForm/ContactForm';
-import { ContactList } from './ContactList/ContactList';
-import { Filter } from './Filter/Filter';
-import { fetchContacts } from '../redux/contactsOperations';
+import { useDispatch } from 'react-redux';
+import { NavLink, Routes, Route } from 'react-router-dom';
+import { refreshCurrentUser } from 'redux/auth/authOperations';
+import s from './App.module.css';
 
 export const App = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts.items);
-  const symbolsFilter = useSelector(state => state.contacts.filter);
+  // const contacts = useSelector(state => state.contacts.items);
+  // const symbolsFilter = useSelector(state => state.contacts.filter);
 
   // const isFirstRender = useRef(true);
 
   useEffect(() => {
-    // if (!isFirstRender.current) {
-    dispatch(fetchContacts());
-    // } else {
-    //   isFirstRender.current = false;
-    // }
+    dispatch(refreshCurrentUser());
   }, [dispatch]);
 
-  const handleOnInputFilter = evt => {
-    const { value } = evt.target;
-    dispatch(contactsActions.findContact(value));
-  };
+  // const handleOnInputFilter = evt => {
+  //   const { value } = evt.target;
+  //   dispatch(contactsActions.findContact(value));
+  // };
 
-  const normFilter = symbolsFilter.toLowerCase();
-  const filteredContacts = normFilter
-    ? contacts.filter(item => item.name.toLowerCase().includes(normFilter))
-    : null;
+  // const normFilter = symbolsFilter.toLowerCase();
+  // const filteredContacts = normFilter
+  //   ? contacts.filter(item => item.name.toLowerCase().includes(normFilter))
+  //   : null;
   return (
-    <div>
-      <h1>Phonebook</h1>
-      <ContactForm />
+    <div className={s.container}>
+      <nav>
+        <NavLink
+          to="/login"
+          className={({ isActive }) =>
+            s.link + (isActive ? ' ' + s.active : '')
+          }
+        >
+          Login
+        </NavLink>
+        <NavLink
+          to="/register"
+          className={({ isActive }) =>
+            s.link + (isActive ? ' ' + s.active : '')
+          }
+        >
+          Register
+        </NavLink>
+      </nav>
+      <Routes>
+        {/* <Suspense fallback={<p>Loading ...</p>}></Suspense> */}
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/phonebook" element={<Phonebook />} />
 
-      <h2>Contacts</h2>
-      <Filter value={symbolsFilter} onChange={handleOnInputFilter} />
-      <ContactList contactsList={filteredContacts || contacts} />
+        <Route path="*" element={<NotFound />} />
+        {/* </Suspense> */}
+      </Routes>
     </div>
+    // <div>
+    //   <h1>Phonebook</h1>
+    //   <ContactForm />
+
+    //   <h2>Contacts</h2>
+    //   <Filter value={symbolsFilter} onChange={handleOnInputFilter} />
+    //   <ContactList contactsList={filteredContacts || contacts} />
+    // </div>
   );
 };
 

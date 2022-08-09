@@ -15,12 +15,10 @@ export const fetchContacts = createAsyncThunk(
 
 export const addNewContact = createAsyncThunk(
   'contacts/addNewContact',
-  async (dataContact, { rejectWithValue, dispatch }) => {
+  async (dataContact, { rejectWithValue }) => {
     try {
-      const { data } = await addContacts(dataContact);
-      // if (resp.status !== 201) {
-      //   throw new Error("Can't add contact. Server error.");
-      // }
+      const data = await addContacts(dataContact);
+      console.log('~ data dataContact', data);
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -32,7 +30,7 @@ export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
   async (contactId, { rejectWithValue }) => {
     try {
-      const { id } = await deleteContacts(contactId);
+      const id = await deleteContacts(contactId);
       return id;
     } catch (error) {
       return rejectWithValue(error.message);

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { deleteContact } from 'redux/contactsOperations';
+import { deleteContact } from 'redux/contacts/contactsOperations';
 import s from './ContactList.module.css';
 
 export const ContactList = ({ contactsList }) => {
@@ -13,9 +13,9 @@ export const ContactList = ({ contactsList }) => {
   return (
     contactsList.length !== 0 && (
       <ul className={s.list}>
-        {contactsList.map(({ name, phone, id }) => (
+        {contactsList.map(({ name, number, id }) => (
           <li key={id} className={s.item}>
-            {name}: {phone}
+            {name}: {number}
             <button
               type="button"
               onClick={() => {

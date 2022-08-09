@@ -10,10 +10,14 @@ import {
 export const items = createReducer([], {
   [fetchContacts.fulfilled]: (_, { payload }) => payload,
   [addNewContact.fulfilled]: (state, { payload }) => {
-    state.push(payload);
+    console.log('~ payload add', payload);
+
+    return [payload, ...state];
   },
-  [deleteContact.fulfilled]: (state, { payload }) =>
-    state.filter(item => item.id !== payload),
+  [deleteContact.fulfilled]: (state, { payload }) => {
+    console.log('~ payload delete', payload);
+    return state.filter(item => item.id !== payload);
+  },
 });
 
 export const filter = createReducer('', {
