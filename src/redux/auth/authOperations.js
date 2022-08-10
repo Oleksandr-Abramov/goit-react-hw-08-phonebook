@@ -4,7 +4,7 @@ import {
   loginUser,
   logOutUser,
   registerUser,
-  token,
+  tokenUser,
 } from 'service/apiService';
 
 export const register = createAsyncThunk(
@@ -12,7 +12,7 @@ export const register = createAsyncThunk(
   async (regData, { rejectWithValue }) => {
     try {
       const user = await registerUser(regData);
-      console.log('~ user register', user);
+      // console.log('~ user register', user);
 
       return user;
     } catch (error) {
@@ -26,7 +26,7 @@ export const logIn = createAsyncThunk(
   async (loginData, { rejectWithValue }) => {
     try {
       const user = await loginUser(loginData);
-      console.log('~ user logIn', user);
+      // console.log('~ user logIn', user);
       return user;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -38,7 +38,7 @@ export const logOut = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const user = await logOutUser();
-      console.log('~ user logOut', user);
+      // console.log('~ user logOut', user);
       return user;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -56,12 +56,12 @@ export const refreshCurrentUser = createAsyncThunk(
       return rejectWithValue();
     }
 
-    token.set(persistedToken);
+    tokenUser.set(persistedToken);
 
-    console.log('~ getState()', getState());
+    // console.log('~ getState()', getState());
     try {
       const user = await fetchCurrentUser();
-      console.log('~ user refreshCurrentUser', user);
+      // console.log('~ user refreshCurrentUser', user);
       return user;
     } catch (error) {
       rejectWithValue(error.message);

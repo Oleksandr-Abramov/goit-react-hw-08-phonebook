@@ -2,7 +2,7 @@ import axios from 'axios';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
-export const token = {
+export const tokenUser = {
   set(token) {
     axios.defaults.headers.common.Authorization = token;
   },
@@ -13,7 +13,7 @@ export const token = {
 
 export const registerUser = data => {
   return axios.post(`/users/signup`, data).then(({ data }) => {
-    token.set(data.token);
+    tokenUser.set(data.token);
     // console.log('resp', data);
     return data;
   });
@@ -21,7 +21,7 @@ export const registerUser = data => {
 
 export const loginUser = dataUser => {
   return axios.post(`/users/login`, dataUser).then(({ data }) => {
-    token.set(data.token);
+    tokenUser.set(data.token);
     // console.log('resp', data);
     return data;
   });
@@ -29,14 +29,14 @@ export const loginUser = dataUser => {
 
 export const logOutUser = () => {
   return axios.post(`/users/logout`).then(({ data }) => {
-    token.unset();
+    tokenUser.unset();
     // console.log('resp', data);
     return data;
   });
 };
 export const fetchCurrentUser = () => {
   return axios.get(`/users/current`).then(({ data }) => {
-    console.log('resp fetchCurrentUser', data);
+    // console.log('resp fetchCurrentUser', data);
     return data;
   });
 };

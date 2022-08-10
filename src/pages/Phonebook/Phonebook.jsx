@@ -6,14 +6,15 @@ import { ContactList } from '../../components/ContactList/ContactList';
 import { Filter } from '../../components/Filter/Filter';
 // import { fetchContacts } from '../../redux/contacts/contactsOperations';
 import { UserMenu } from 'components/UserMenu/UserMenu';
+
 // import { useEffect } from 'react';
 
 export const Phonebook = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(state => state.contacts.items);
-  const statePhonebook = useSelector(state => state.contacts.items);
-  console.log('~ statePhonebook', statePhonebook);
-  console.log('~ contacts', contacts);
+  // const statePhonebook = useSelector(state => state.contacts.items);
+  // console.log('~ statePhonebook', statePhonebook);
+  // console.log('~ contacts', contacts);
   const symbolsFilter = useSelector(state => state.contacts.filter);
 
   // useEffect(() => {
