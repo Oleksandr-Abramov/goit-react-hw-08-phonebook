@@ -7,7 +7,7 @@ const initialState = {
   isLogged: false,
 };
 
-const authSlice = createSlice({
+export const authSlice = createSlice({
   name: 'auth',
   initialState,
   extraReducers: {
@@ -26,6 +26,9 @@ const authSlice = createSlice({
       state.token = null;
       state.isLogged = false;
     },
+    // [refreshCurrentUser.pending](state) {
+    //   state.isLogged = true;
+    // },
     [refreshCurrentUser.fulfilled](state, { payload }) {
       state.user = payload;
       state.isLogged = true;
@@ -33,4 +36,4 @@ const authSlice = createSlice({
   },
 });
 
-export default authSlice.reducer;
+// export default authSlice.reducer;

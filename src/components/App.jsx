@@ -8,17 +8,25 @@
 import { Home } from 'pages/Home/Home';
 import { Login } from 'pages/Login/Login';
 import { NotFound } from 'pages/NotFound/NotFound';
-import { Phonebook } from 'pages/Phonebook/Phonebook';
+// import { Phonebook } from 'pages/Phonebook/Phonebook';
 import { Register } from 'pages/Register/Register';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Routes, Route } from 'react-router-dom';
 import { refreshCurrentUser } from 'redux/auth/authOperations';
+import { lazy, Suspense } from 'react';
 import s from './App.module.css';
+import { PrivateRoute } from './PrivateRoute';
+
+// const Home = lazy(() => import('../pages/Home/Home'));
+// const Login = lazy(() => import('../pages/Login/Login'));
+const Phonebook = lazy(() => import('../pages/Phonebook'));
+// const Register = lazy(() => import('../pages/Register/Register'));
+// const NotFound = lazy(() => import('../pages/NotFound/NotFound'));
 
 export const App = () => {
   const dispatch = useDispatch();
-  // const contacts = useSelector(state => state.contacts.items);
+  const isLogged = useSelector(state => state.auth.isLogged);
   // const symbolsFilter = useSelector(state => state.contacts.filter);
 
   // const isFirstRender = useRef(true);
@@ -38,33 +46,44 @@ export const App = () => {
   //   : null;
   return (
     <div className={s.container}>
-      <nav>
-        <NavLink
-          to="/login"
-          className={({ isActive }) =>
-            s.link + (isActive ? ' ' + s.active : '')
-          }
-        >
-          Login
-        </NavLink>
-        <NavLink
-          to="/register"
-          className={({ isActive }) =>
-            s.link + (isActive ? ' ' + s.active : '')
-          }
-        >
-          Register
-        </NavLink>
-      </nav>
+      {!isLogged && (
+        <nav>
+          <NavLink
+            to="/login"
+            className={({ isActive }) =>
+              s.link + (isActive ? ' ' + s.active : '')
+            }
+          >
+            Login
+          </NavLink>
+          <NavLink
+            to="/register"
+            className={({ isActive }) =>
+              s.link + (isActive ? ' ' + s.active : '')
+            }
+          >
+            Register
+          </NavLink>
+        </nav>
+      )}
       <Routes>
-        {/* <Suspense fallback={<p>Loading ...</p>}></Suspense> */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/phonebook" element={<Phonebook />} />
-
+        <Route
+          path="/phonebook"
+          element={
+            <Suspense fallback={<p>Loading ...</p>}>
+              <PrivateRoute>
+                <Phonebook />
+              </PrivateRoute>
+            </Suspense>
+          }
+        />
+        {/* <PrivateRoute>
+          <Phonebook />
+        </PrivateRoute> */}
         <Route path="*" element={<NotFound />} />
-        {/* </Suspense> */}
       </Routes>
     </div>
     // <div>

@@ -1,10 +1,18 @@
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteContact } from 'redux/contacts/contactsOperations';
+import {
+  deleteContact,
+  fetchContacts,
+} from 'redux/contacts/contactsOperations';
 import s from './ContactList.module.css';
 
 export const ContactList = ({ contactsList }) => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   const handleDelete = id => {
     dispatch(deleteContact(id));
