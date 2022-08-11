@@ -56,14 +56,14 @@ export const App = () => {
           >
             Register
           </NavLink>
-          <NavLink
+          {/* <NavLink
             to="/phonebook"
             className={({ isActive }) =>
               s.link + (isActive ? ' ' + s.active : '')
             }
           >
             Phonebook
-          </NavLink>
+          </NavLink> */}
         </nav>
       )}
       {isFetchingCurrentUser && !isLogged ? (
