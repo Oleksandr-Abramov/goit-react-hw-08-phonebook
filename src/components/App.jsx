@@ -27,7 +27,7 @@ const NotFound = lazy(() => import('../pages/NotFound'));
 
 export const App = () => {
   const dispatch = useDispatch();
-  // const isLogged = useSelector(state => state.auth.isLogged);
+  const isLogged = useSelector(state => state.auth.isLogged);
   const isFetchingCurrentUser = useSelector(
     state => state.auth.isFetchingCurrentUser
   );
@@ -38,35 +38,35 @@ export const App = () => {
 
   return (
     <div className={s.container}>
-      {/* {!isFetchingCurrentUser && !isLogged && ( */}
-      <nav>
-        <NavLink
-          to="/login"
-          className={({ isActive }) =>
-            s.link + (isActive ? ' ' + s.active : '')
-          }
-        >
-          Login
-        </NavLink>
-        <NavLink
-          to="/register"
-          className={({ isActive }) =>
-            s.link + (isActive ? ' ' + s.active : '')
-          }
-        >
-          Register
-        </NavLink>
-        <NavLink
-          to="/phonebook"
-          className={({ isActive }) =>
-            s.link + (isActive ? ' ' + s.active : '')
-          }
-        >
-          Phonebook
-        </NavLink>
-      </nav>
-      {/* )} */}
-      {isFetchingCurrentUser ? (
+      {!isFetchingCurrentUser && !isLogged && (
+        <nav>
+          <NavLink
+            to="/login"
+            className={({ isActive }) =>
+              s.link + (isActive ? ' ' + s.active : '')
+            }
+          >
+            Login
+          </NavLink>
+          <NavLink
+            to="/register"
+            className={({ isActive }) =>
+              s.link + (isActive ? ' ' + s.active : '')
+            }
+          >
+            Register
+          </NavLink>
+          <NavLink
+            to="/phonebook"
+            className={({ isActive }) =>
+              s.link + (isActive ? ' ' + s.active : '')
+            }
+          >
+            Phonebook
+          </NavLink>
+        </nav>
+      )}
+      {isFetchingCurrentUser && !isLogged ? (
         <p>Loading...</p>
       ) : (
         <Suspense fallback={<p>Loading ...</p>}>
