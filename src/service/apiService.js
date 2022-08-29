@@ -14,7 +14,6 @@ export const tokenUser = {
 export const registerUser = data => {
   return axios.post(`/users/signup`, data).then(({ data }) => {
     tokenUser.set(data.token);
-    // console.log('resp', data);
     return data;
   });
 };
@@ -22,7 +21,6 @@ export const registerUser = data => {
 export const loginUser = dataUser => {
   return axios.post(`/users/login`, dataUser).then(({ data }) => {
     tokenUser.set(data.token);
-    // console.log('resp', data);
     return data;
   });
 };
@@ -30,13 +28,11 @@ export const loginUser = dataUser => {
 export const logOutUser = () => {
   return axios.post(`/users/logout`).then(({ data }) => {
     tokenUser.unset();
-    // console.log('resp', data);
     return data;
   });
 };
 export const fetchCurrentUser = () => {
   return axios.get(`/users/current`).then(({ data }) => {
-    // console.log('resp fetchCurrentUser', data);
     return data;
   });
 };
@@ -47,12 +43,10 @@ export const getContacts = () => {
 
 export const addContacts = dataContact =>
   axios.post('/contacts', dataContact).then(({ data }) => {
-    // console.log('~ data addContacts', data);
     return data;
   });
 
 export const deleteContacts = id =>
   axios.delete(`/contacts/${id}`).then(response => {
-    // console.log('~ response deleteContacts', response);
     return id;
   });

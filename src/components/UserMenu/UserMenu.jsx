@@ -12,7 +12,11 @@ export const UserMenu = () => {
       {isLogged && (
         <div className={s.container}>
           <span className={s.name}>Вітаю, {name}</span>
-          <button type="button" onClick={() => dispatch(logOut())}>
+          <button
+            type="button"
+            className={s.button}
+            onClick={() => dispatch(logOut())}
+          >
             Вийти
           </button>
         </div>

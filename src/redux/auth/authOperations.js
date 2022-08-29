@@ -12,8 +12,6 @@ export const register = createAsyncThunk(
   async (regData, { rejectWithValue }) => {
     try {
       const user = await registerUser(regData);
-      // console.log('~ user register', user);
-
       return user;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -26,7 +24,6 @@ export const logIn = createAsyncThunk(
   async (loginData, { rejectWithValue }) => {
     try {
       const user = await loginUser(loginData);
-      // console.log('~ user logIn', user);
       return user;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -38,7 +35,6 @@ export const logOut = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const user = await logOutUser();
-      // console.log('~ user logOut', user);
       return user;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -58,10 +54,8 @@ export const refreshCurrentUser = createAsyncThunk(
 
     tokenUser.set(persistedToken);
 
-    // console.log('~ getState()', getState());
     try {
       const user = await fetchCurrentUser();
-      // console.log('~ user refreshCurrentUser', user);
       return user;
     } catch (error) {
       rejectWithValue(error.message);

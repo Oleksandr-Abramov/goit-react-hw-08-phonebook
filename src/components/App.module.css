@@ -1,6 +1,4 @@
 .container {
-  /* margin-top: 20px;
-  margin-left: 40px; */
   padding-left: 40px;
   padding-top: 20px;
   padding-right: 40px;
@@ -16,4 +14,7 @@
 .active {
   color: white;
   background-color: orangered;
+}
+.navigation {
+  text-align: center;
 }

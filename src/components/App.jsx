@@ -1,15 +1,3 @@
-// import { useEffect } from 'react';
-// import { useDispatch, useSelector } from 'react-redux/es/exports';
-// import * as contactsActions from '../redux/contactsActions';
-// import { ContactForm } from './ContactForm/ContactForm';
-// import { ContactList } from './ContactList/ContactList';
-// import { Filter } from './Filter/Filter';
-// import { fetchContacts } from '../redux/contactsOperations';
-// import { Home } from 'pages/Home/Home';
-// import { Login } from 'pages/Login/Login';
-// import { NotFound } from 'pages/NotFound/NotFound';
-// import { Phonebook } from 'pages/Phonebook/Phonebook';
-// import { Register } from 'pages/Register/Register';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Routes, Route } from 'react-router-dom';
@@ -18,6 +6,7 @@ import { lazy, Suspense } from 'react';
 import s from './App.module.css';
 import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublickRoute';
+import { Loader } from './Loader/Loader';
 
 const Home = lazy(() => import('../pages/Home'));
 const Login = lazy(() => import('../pages/Login'));
@@ -39,7 +28,7 @@ export const App = () => {
   return (
     <div className={s.container}>
       {!isFetchingCurrentUser && !isLogged && (
-        <nav>
+        <nav className={s.navigation}>
           <NavLink
             to="/login"
             className={({ isActive }) =>
@@ -56,20 +45,13 @@ export const App = () => {
           >
             Register
           </NavLink>
-          {/* <NavLink
-            to="/phonebook"
-            className={({ isActive }) =>
-              s.link + (isActive ? ' ' + s.active : '')
-            }
-          >
-            Phonebook
-          </NavLink> */}
         </nav>
       )}
       {isFetchingCurrentUser && !isLogged ? (
-        <p>Loading...</p>
+        //
+        <Loader />
       ) : (
-        <Suspense fallback={<p>Loading ...</p>}>
+        <Suspense fallback={<Loader />}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route

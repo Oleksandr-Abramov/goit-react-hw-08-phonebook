@@ -1,10 +1,29 @@
 .container {
   display: flex;
   align-items: center;
-  justify-content: right;
+  justify-content: space-between;
 }
 
 .name {
   font-weight: 700;
   margin-right: 12;
+}
+.button {
+  height: 30px;
+  width: 80px;
+  border-radius: 3px;
+  border: rgba(0, 0, 0, 0.3) 0px solid;
+  box-sizing: border-box;
+  padding: 1px;
+  background: #ea8266;
+  color: #fff;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 12pt;
+  transition: background 0.4s;
+  cursor: pointer;
+}
+/* Изменение фона кнопки при наведении */
+.button:hover {
+  background: #b53131;
 }
